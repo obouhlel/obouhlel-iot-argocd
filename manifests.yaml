@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: wil-playground
-        image: wil42/playground:v2
+        image: wil42/playground:v1
         ports:
         - containerPort: 8888
         resources:
@@ -45,9 +45,13 @@ kind: Ingress
 metadata:
   name: wil-playground-ingress
   namespace: dev
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
+  ingressClassName: nginx
   rules:
-  - http:
+  - host: dev.hosts.local
+    http:
       paths:
       - path: /
         pathType: Prefix
